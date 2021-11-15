@@ -2,11 +2,6 @@ package main
 
 import "fmt"
 
-func main() {
-	letter_true()
-
-}
-
 func letter_true() {
 	var letter string
 	var a []rune
@@ -20,7 +15,5 @@ func letter_true() {
 		} else {
 			fmt.Println("choisi une seule lettre de l'alphabet ")
 		}
-
 	}
-
 }
