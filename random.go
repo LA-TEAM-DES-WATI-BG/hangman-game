@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func rdmWord() {
+func rdmWord() string {
 	rand.Seed(time.Now().UTC().UnixNano())
 	data, err := ioutil.ReadFile("words3.txt")
 	if err != nil {
@@ -16,7 +16,8 @@ func rdmWord() {
 	dat := string(data)
 	dat2 := SplitWhiteSpaces(dat)
 	Rdmwrd := randInt(0, len(dat2))
-	fmt.Printf("%s", dat2[Rdmwrd])
+	fmt.Printf("le bot a choisit le mot %s\n", dat2[Rdmwrd])
+	return (dat2[Rdmwrd])
 }
 func SplitWhiteSpaces(args string) []string {
 	var i int

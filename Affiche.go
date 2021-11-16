@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func affiche(tab []int, mot string) {
+
 	lettre := []rune(mot)
 	var secret []rune
 	for i := 0; i < len(lettre); i++ {

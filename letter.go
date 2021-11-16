@@ -2,10 +2,11 @@ package main
 
 import "fmt"
 
-func letter_true() string {
+func letterTrue() rune {
 	var letter string
 	var a []rune
 	for {
+		fmt.Println("veuillez choisir une lettre")
 		fmt.Scan(&letter)
 		a = []rune(letter)
 		if ((a[0] > 96 && a[0] < 123) || (a[0] > 64 && a[0] < 91)) && len(a) < 2 {
@@ -17,5 +18,5 @@ func letter_true() string {
 			fmt.Println("choisi une seule lettre de l'alphabet ")
 		}
 	}
-	return letter
+	return a[0]
 }

@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func compare(user_choice rune, bot_choice string) []int {
 	bot_choice_rune := []rune(bot_choice)
 	var tab []int
@@ -8,8 +10,9 @@ func compare(user_choice rune, bot_choice string) []int {
 	}
 	for i := 0; i < len(bot_choice_rune); i++ {
 		if bot_choice_rune[i] == user_choice {
-			tab = append(tab, i+1)
+			tab = append(tab, i)
 		}
 	}
+	fmt.Println(tab)
 	return tab
 }
