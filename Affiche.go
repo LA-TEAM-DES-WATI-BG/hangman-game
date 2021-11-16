@@ -15,9 +15,3 @@ func affiche(tab []int, mot string) {
 		fmt.Printf("%c ", secret[i])
 	}
 }
-func main() {
-	tab := []int{0, 1}
-	var cb string
-	cb = "mur"
-	affiche(tab, cb)
-}

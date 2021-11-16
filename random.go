@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func main() {
+func rdmWord() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	data, err := ioutil.ReadFile("words3.txt")
 	if err != nil {
