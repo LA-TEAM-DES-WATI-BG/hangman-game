@@ -16,7 +16,7 @@ func rdmWord() string {
 	dat := string(data)
 	dat2 := SplitWhiteSpaces(dat)
 	Rdmwrd := randInt(0, len(dat2))
-	fmt.Printf("le bot a choisit le mot %s\n", dat2[Rdmwrd])
+	fmt.Printf("le bot a choisit sont mot !")
 	return (dat2[Rdmwrd])
 }
 func SplitWhiteSpaces(args string) []string {
