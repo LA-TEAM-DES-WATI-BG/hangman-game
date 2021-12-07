@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main() {
+func main1() {
 	//var copie []int
 	var user_choice rune
 	var tab []int
