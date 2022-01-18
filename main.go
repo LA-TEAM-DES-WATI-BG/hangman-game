@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func main1() {
+func hangmanFinished() {
 	//var copie []int
 	var user_choice rune
 	var tab []int

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>niveau 1</title>
+</head>
+    <body>
+        <form method="post" action="/lvl1">
+            <input name="A" type="hidden" value="A">
+            <button name="A" type="submit">A</button>
+            {{.A}}
+        </form>
+        <form method="post" action="/lvl1">
+            <input name="B" type="hidden" value="B">
+            <button name="B" type="submit">B</button>
+            {{.B}}
+        </form>
+        <form method="post" action="/lvl1">
+            <input name="C" type="hidden" value="C">
+            <button name="C" type="submit">C</button>
+            {{.C}}
+        </form>
+        
+    </body>
+</html>

@@ -1,0 +1,45 @@
+@import url(reset.css);
+
+.header {
+    height:60px;
+    margin: auto;
+    width:100%;
+    background-color:blue;
+}
+
+.tab {
+    display: flex;
+}
+.lvl1 {
+    height:40px;
+    margin: left;
+}
+
+.lvl2 {
+    height:40px;
+    margin: auto;
+    color: blue;
+}
+.lvl3 {
+    height:40px;
+    margin: right;
+}
+
+
+
+
+
+.headerTittle {
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.imgHangman {
+    display: flex;
+    justify-content: center;
+}
+/* 
+.imgHangman2 {
+    justify-content: center;
+} */
