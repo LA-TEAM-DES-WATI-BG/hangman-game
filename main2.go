@@ -14,17 +14,24 @@ type lvl struct {
 	Lvl2 string
 	Lvl3 string
 }
-type letter struct {
-	A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z string
+
+// type letter struct {
+// 	A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z string
+// }
+type Letter struct {
+	Value string
+	Used  bool
+}
+
+type test struct {
+	oui     string
+	letters []Letter
 }
 
 var templates = template.Must(template.ParseFiles("HangmanHTML/hangman.html"))
 var templates2 = template.Must(template.ParseFiles("HangmanHTML/lvl1.html"))
 var templates3 = template.Must(template.ParseFiles("HangmanHTML/lvl2.html"))
 var templates4 = template.Must(template.ParseFiles("HangmanHTML/lvl3.html"))
-var a *string
-var b *string
-var p []string
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	homeP := homePage{
@@ -34,22 +41,14 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func lvl_1(w http.ResponseWriter, r *http.Request) {
-	Letters := letter{
-		A: r.FormValue("A"),
-		B: r.FormValue("B"),
-		C: r.FormValue("C"),
+	data := test{
+		oui: "lettresss",
+		letters: []Letter{
+			{Value: "A", Used: false},
+			{Value: "B", Used: false},
+		},
 	}
-	// fmt.Println(Letters.A)
-	// fmt.Println(Letters.B)
-	// fmt.Println(Letters.C)
-
-	if Letters.A == "A" {
-		a = &Letters.A
-	}
-	// if b == nil {
-	// 	b = &Letters.B
-	// }
-	templates2.Execute(w, Letters)
+	templates2.Execute(w, data)
 }
 
 func lvl_2(w http.ResponseWriter, r *http.Request) {
