@@ -10,10 +10,10 @@
         <div class="flex">
             {{range .Letters}}
                 {{if .Used}}
-                    <button class= "letter selectable" disabled>{{.Value}}</button>
+                    <button class="letter selectable" disabled>{{.Value}}</button>
                 {{else}}
-                    <form method="post" action="/lvl1">
-                        <input name= "letter" type="hidden" value="{{.Value}}">
+                    <form method="POST" action="/lvl1">
+                        <input name="letter" type="hidden" value="{{.Value}}">
                         <button class="letter selectable" type="submit">{{.Value}}</button>
                     </form>
                 {{end}}

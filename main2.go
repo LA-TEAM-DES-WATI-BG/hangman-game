@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -15,17 +16,14 @@ type lvl struct {
 	Lvl3 string
 }
 
-// type letter struct {
-// 	A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z string
-// }
 type Letter struct {
 	Value string
 	Used  bool
 }
 
 type test struct {
-	oui     string
-	letters []Letter
+	Oui     string
+	Letters []Letter
 }
 
 var templates = template.Must(template.ParseFiles("HangmanHTML/hangman.html"))
@@ -41,13 +39,29 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func lvl_1(w http.ResponseWriter, r *http.Request) {
-	data := test{
-		oui: "lettresss",
-		letters: []Letter{
-			{Value: "A", Used: false},
-			{Value: "B", Used: false},
-		},
+	var data test
+	testtt := r.FormValue("letter")
+	alphabet := [26]string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+	for z := 0; z < 26; z++ {
+		ms := Letter{
+			Value: alphabet[z],
+			Used:  false,
+		}
+		if testtt == alphabet[z] {
+			ms = Letter{
+				Value: testtt,
+				Used:  true,
+			}
+		}
+		data.Letters = append(data.Letters, ms)
 	}
+	fmt.Println(testtt)
+	for i := 0; i < 26; i++ {
+		if alphabet[i] == testtt {
+			data.Letters[i].Used = true
+		}
+	}
+
 	templates2.Execute(w, data)
 }
 
