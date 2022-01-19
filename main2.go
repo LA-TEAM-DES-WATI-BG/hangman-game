@@ -21,8 +21,8 @@ type Letter struct {
 	Used  bool
 }
 
-type test struct {
-	Oui     string
+type donnée struct {
+	Oui     []string
 	Letters []Letter
 }
 
@@ -30,6 +30,7 @@ var templates = template.Must(template.ParseFiles("HangmanHTML/hangman.html"))
 var templates2 = template.Must(template.ParseFiles("HangmanHTML/lvl1.html"))
 var templates3 = template.Must(template.ParseFiles("HangmanHTML/lvl2.html"))
 var templates4 = template.Must(template.ParseFiles("HangmanHTML/lvl3.html"))
+var donnéeVar donnée
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	homeP := homePage{
@@ -39,28 +40,28 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func lvl_1(w http.ResponseWriter, r *http.Request) {
-	var data test
-	testtt := r.FormValue("letter")
-	alphabet := [26]string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
-	for z := 0; z < 26; z++ {
-		ms := Letter{
-			Value: alphabet[z],
-			Used:  false,
-		}
-		if testtt == alphabet[z] {
-			ms = Letter{
-				Value: testtt,
+
+	letter := r.FormValue("letter")
+	// alphabet := [26]string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+	// for i, fdp := range data.Letters {
+	// 	if fdp.Value == letter {
+	// 		data.Letters[i] = Letter{Value: fdp.Value, Used: true}
+	// 		break
+	// 	}
+	data := donnée{
+		Letters: []Letter{
+			{Value: "A", Used: false},
+		},
+	}
+	for i, fdp := range donnéeVar.Letters {
+		if fdp.Value == letter {
+			donnéeVar.Letters[i] = Letter{
+				Value: fdp.Value,
 				Used:  true,
 			}
 		}
-		data.Letters = append(data.Letters, ms)
 	}
-	fmt.Println(testtt)
-	for i := 0; i < 26; i++ {
-		if alphabet[i] == testtt {
-			data.Letters[i].Used = true
-		}
-	}
+	fmt.Println(letter)
 
 	templates2.Execute(w, data)
 }
