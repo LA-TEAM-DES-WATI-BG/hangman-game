@@ -18,13 +18,18 @@
                     </form>
                 {{end}}
             {{end}}
+            {{range .Letters2}}
+            {{if .Used}}
+                <button class="letter selectable" disabled>{{.Value}}</button>
+            {{else}}
+                <form method="POST" action="/lvl1">
+                    <input name="letter" type="hidden" value="{{.Value}}">
+                    <button class="letter selectable" type="submit">{{.Value}}</button>
+                </form>
+            {{end}}
+            {{end}}
         </div>
-            
-
-
-
-
-
+        
         <!-- <form method="post" action="/lvl1">
             <input name="A" type="hidden" value="A">
             <button name="A" type="submit">A</button>
