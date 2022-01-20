@@ -7,20 +7,25 @@
     <title>niveau 1</title>
 </head>
     <body>
-        <div class="flex">
-            {{.Mot}}
-            {{range .Letters}}
-                {{if .Used}}
-                    <button class="letter selectable" disabled>{{.Value}}</button>
-                {{else}}
-                    <form method="POST" action="/lvl1">
-                        <input name="letter" type="hidden" value="{{.Value}}">
-                        <button class="letter selectable" type="submit">{{.Value}}</button>
-                    </form>
-                {{end}}
-            {{end}}
+        {{if .Fin}}
+        <div>
+            <img src="./image/image_defaite.jpg" alt="">
         </div>
-        
+        {{else}}
+            <div class="flex">   
+                {{.Mot}}
+                {{range .Letters}}
+                    {{if .Used}}
+                        <button class="letter selectable" disabled>{{.Value}}</button>
+                    {{else}}
+                        <form method="POST" action="/lvl1">
+                            <input name="letter" type="hidden" value="{{.Value}}">
+                            <button class="letter selectable" type="submit">{{.Value}}</button>
+                        </form>
+                    {{end}}
+                {{end}}
+            </div>
+        {{end}}
         <!-- <form method="post" action="/lvl1">
             <input name="A" type="hidden" value="A">
             <button name="A" type="submit">A</button>
