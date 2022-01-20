@@ -25,9 +25,9 @@ type Letter struct {
 }
 
 type donnée struct {
-	Oui      []string
-	Letters  [26]Letter
-	Letters2 [5]Letter
+	Mot     []string
+	Oui     []string
+	Letters [26]Letter
 }
 
 var templates = template.Must(template.ParseFiles("HangmanHTML/hangman.html"))
@@ -37,6 +37,7 @@ var templates4 = template.Must(template.ParseFiles("HangmanHTML/lvl3.html"))
 var data donnée
 var ChoixBot string = rdmWord()
 var NbErrror int
+var MotBot = convertisseur(ChoixBot)
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	homeP := homePage{
@@ -46,14 +47,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func lvl_1(w http.ResponseWriter, r *http.Request) {
-	alphabet2 := [5]string{"A", "B", "C", "D", "E"}
-	for g := 0; g < 5; g++ {
-		ms := Letter{
-			Value: alphabet2[g],
-			Used:  false,
-		}
-		data.Letters2[g] = ms
-	}
+	data.Mot = appen(MotBot)
 	letter := r.FormValue("letter")
 	alphabet := [26]string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 	for g := 0; g < len(alphabet); g++ {
@@ -81,7 +75,23 @@ func lvl_1(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(NbErrror)
 	templates2.Execute(w, data)
 }
-
+func appen(a []string) []string {
+	var c []string
+	for i := 0; i < len(a); i++ {
+		c = append(c, "_ ")
+	}
+	return c
+}
+func convertisseur(a string) []string {
+	ChoixBot2 := []rune(a)
+	var Mot []string
+	for i := 0; i < len(ChoixBot2); i++ {
+		var conver string
+		conver = string(ChoixBot2[i] - 32)
+		Mot = append(Mot, conver)
+	}
+	return Mot
+}
 func letterTrue(Lettre, ChoixBot string) bool {
 	ChoixBot2 := []rune(ChoixBot)
 	var Mot []string
@@ -173,6 +183,6 @@ func main() {
 	http.HandleFunc("/lvl2", lvl_2)
 	http.HandleFunc("/lvl3", lvl_3)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":80", nil))
 
 }
