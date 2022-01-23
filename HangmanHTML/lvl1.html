@@ -12,18 +12,28 @@
             <img src="./image/image_defaite.jpg" alt="">
         </div>
         {{else}}
-            <div class="flex">   
-                {{.Mot}}
-                {{range .Letters}}
-                    {{if .Used}}
-                        <button class="letter selectable" disabled>{{.Value}}</button>
-                    {{else}}
-                        <form method="POST" action="/lvl1">
-                            <input name="letter" type="hidden" value="{{.Value}}">
-                            <button class="letter selectable" type="submit">{{.Value}}</button>
-                        </form>
-                    {{end}}
-                {{end}}
+            <div class="flex">
+                <table>
+                    <tr>   
+                        <div class="word">
+                            {{.Mot}}
+                        </div>
+                        {{range .Letters}}
+                            {{if .Used}}
+                                <th>
+                                    <button class="letter selectable" disabled>{{.Value}}</button>
+                                </th>
+                            {{else}}
+                                <th>
+                                    <form method="POST" action="/lvl1">
+                                        <input name="letter" type="hidden" value="{{.Value}}">
+                                        <button class="letter selectable" type="submit">{{.Value}}</button>
+                                    </form>
+                                </th>
+                            {{end}}
+                        {{end}}
+                    </tr>
+                </table> 
             </div>
         {{end}}
         <!-- <form method="post" action="/lvl1">

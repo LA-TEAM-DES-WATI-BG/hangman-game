@@ -17,6 +17,7 @@ type lvl struct {
 	Lvl1 string
 	Lvl2 string
 	Lvl3 string
+	Fin  bool
 }
 
 type Letter struct {
@@ -26,6 +27,7 @@ type Letter struct {
 
 type donnée struct {
 	Mot     []string
+	Mott    []string
 	Oui     []string
 	Letters [26]Letter
 	Fin     bool
@@ -35,6 +37,7 @@ var templates = template.Must(template.ParseFiles("HangmanHTML/hangman.html"))
 var templates2 = template.Must(template.ParseFiles("HangmanHTML/lvl1.html"))
 var templates3 = template.Must(template.ParseFiles("HangmanHTML/lvl2.html"))
 var templates4 = template.Must(template.ParseFiles("HangmanHTML/lvl3.html"))
+
 var data donnée
 var ChoixBot string = rdmWord()
 var NbErrror int
@@ -83,7 +86,17 @@ func lvl_1(w http.ResponseWriter, r *http.Request) {
 		data.Fin = true
 	}
 	data.Mot = Marie
+	// end := data.Mott
+	// for z := 0; z < len(Marie); z++ {
+	// 	for x := 0; x < 6; x++ {
+	// 		if end[z] == Marie[z] && end[x] != "_" {
+	// 			fmt.Println("test")
+	// 		}
+	// 	}
+	// }
 	fmt.Println(NbErrror)
+	fmt.Println(data.Mot)
+	fmt.Println(data.Mott)
 	templates2.Execute(w, data)
 }
 func appen(a []string) []string {
@@ -112,7 +125,7 @@ func letterTrue(Lettre, ChoixBot string) []int {
 		conver = string(ChoixBot2[i] - 32)
 		Mot = append(Mot, conver)
 	}
-	fmt.Println(Mot)
+	data.Mott = Mot
 	for i := 0; i < len(ChoixBot2); i++ {
 		if Lettre == Mot[i] {
 			c = append(c, i)
@@ -134,6 +147,7 @@ func lvl_3(w http.ResponseWriter, r *http.Request) {
 	}
 	templates4.Execute(w, lvl3)
 }
+
 func rdmWord() string {
 	rand.Seed(time.Now().UTC().UnixNano())
 	data, err := ioutil.ReadFile("words3.txt")
@@ -146,6 +160,7 @@ func rdmWord() string {
 	fmt.Printf("le bot a choisit sont mot !")
 	return (dat2[Rdmwrd])
 }
+
 func SplitWhiteSpaces(args string) []string {
 	var i int
 	c := []rune(args)
@@ -175,6 +190,7 @@ func SplitWhiteSpaces(args string) []string {
 	}
 	return slice
 }
+
 func randInt(min int, max int) int {
 	rand.Seed(time.Now().UTC().UnixNano())
 	return (rand.Intn(max))
