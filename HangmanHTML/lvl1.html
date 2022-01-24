@@ -5,52 +5,63 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>niveau 1</title>
+    <link rel="stylesheet" href="css/hangman.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
 </head>
-    <body>
-        {{if .Fin}}
+    <body style="background-image: url('./image/djsnake_background.png');">
         <div>
-            <img src="./image/image_defaite.jpg" alt="">
-        </div>
-        {{else}}
-            <div class="flex">
-                <table>
-                    <tr>   
-                        <div class="word">
-                            {{.Mot}}
-                        </div>
-                        {{range .Letters}}
-                            {{if .Used}}
-                                <th>
-                                    <button class="letter selectable" disabled>{{.Value}}</button>
-                                </th>
-                            {{else}}
-                                <th>
-                                    <form method="POST" action="/lvl1">
-                                        <input name="letter" type="hidden" value="{{.Value}}">
-                                        <button class="letter selectable" type="submit">{{.Value}}</button>
-                                    </form>
-                                </th>
-                            {{end}}
-                        {{end}}
-                    </tr>
-                </table> 
+            {{if .Fin}}
+            <div class="loose">
+                dommage le mot etait {{.MotFinal}}
+                <img src="./image/image_defaite.jpg" alt="" height="200px" width="200px">
+                
             </div>
-        {{end}}
-        <!-- <form method="post" action="/lvl1">
-            <input name="A" type="hidden" value="A">
-            <button name="A" type="submit">A</button>
-            {{.A}}
-        </form>
-        <form method="post" action="/lvl1">
-            <input name="B" type="hidden" value="B">
-            <button name="B" type="submit">B</button>
-            {{.B}}
-        </form>
-        <form method="post" action="/lvl1">
-            <input name="C" type="hidden" value="C">
-            <button name="C" type="submit">C</button>
-            {{.C}}
-        </form> -->
-        
+            {{else if .Win}}
+                <div>
+                    <img src="./image/win.jpg" alt="" height="10000px" width="10000px">
+                </div>
+            {{else}}
+                <div class="flex">
+                    <table class="tab">
+                        <tr>   
+                            <div class="word">
+                                {{.Mot}}
+                            </div>
+                            {{range .Letters}}
+                                {{if .Used}}
+                                    <th class="centering">
+                                        <button class="button_false" disabled>{{.Value}}</button>
+                                    </th>
+                                {{else}}
+                                    <th class="centering">
+                                        <form method="POST" action="/lvl1">
+                                            <input name="letter" type="hidden" value="{{.Value}}">
+                                            <button class="button" type="submit">{{.Value}}</button>
+                                        </form>
+                                    </th>
+                                {{end}}
+                            {{end}}
+                        </tr>
+                    </table> 
+                </div>
+            {{end}}
+            <!-- <form method="post" action="/lvl1">
+                <input name="A" type="hidden" value="A">
+                <button name="A" type="submit">A</button>
+                {{.A}}
+            </form>
+            <form method="post" action="/lvl1">
+                <input name="B" type="hidden" value="B">
+                <button name="B" type="submit">B</button>
+                {{.B}}
+            </form>
+            <form method="post" action="/lvl1">
+                <input name="C" type="hidden" value="C">
+                <button name="C" type="submit">C</button>
+                {{.C}}
+            </form> -->
+        </div>    
     </body>
 </html>

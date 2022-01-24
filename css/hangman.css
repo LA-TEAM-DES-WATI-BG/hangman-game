@@ -25,15 +25,55 @@
     margin: right;
 }
 
-.word {
-    height: 90px;
+.loose {
+    text-align: center;
+    font-size: 90px;
 }
+
+.word {
+    text-align: center;
+    height: 90px;
+    margin: auto;
+    font-size: 70px;
+    font-family: 'Merriweather', serif;}
 
 .letter_false {
     margin-left: 80px;
 }
 
+.centering {
+    align-items: center;
+}
 
+.button {
+    font-family: 'Merriweather', serif;
+    border-radius: 8px;
+    background-color:blue;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.button_false {
+    font-family: 'Merriweather', serif;
+    border-radius: 8px;
+    background-color: red;
+    border: none;
+    color: grey;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
 
 
