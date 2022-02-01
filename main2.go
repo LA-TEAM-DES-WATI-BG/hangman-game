@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -17,7 +16,6 @@ type lvl struct {
 	Lvl1 string
 	Lvl2 string
 	Lvl3 string
-	Fin  bool
 }
 
 type Letter struct {
@@ -26,11 +24,15 @@ type Letter struct {
 }
 
 type donnée struct {
-	Mot     []string
-	Mott    []string
-	Oui     []string
-	Letters [26]Letter
-	Fin     bool
+	Mot        []string
+	LetterTrue string
+	// Mott    []string
+	Oui      []string
+	Letters  [26]Letter
+	Fin      bool
+	Win      bool
+	MotFinal []string
+	Try      int
 }
 
 var templates = template.Must(template.ParseFiles("HangmanHTML/hangman.html"))
@@ -42,7 +44,7 @@ var data donnée
 var ChoixBot string = rdmWord()
 var NbErrror int
 var MotBot = convertisseur(ChoixBot)
-var Marie = appen(MotBot)
+var Code = appen(MotBot)
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	homeP := homePage{
@@ -53,6 +55,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 func lvl_1(w http.ResponseWriter, r *http.Request) {
 	data.Fin = false
+	data.Win = false
+	var Winn int
 	letter := r.FormValue("letter")
 	alphabet := [26]string{"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 	for g := 0; g < len(alphabet); g++ {
@@ -76,27 +80,29 @@ func lvl_1(w http.ResponseWriter, r *http.Request) {
 				NbErrror += 1
 			} else {
 				for i := 0; i < len(y); i++ {
-					Marie[y[i]] = MotBot[y[i]]
+					Code[y[i]] = MotBot[y[i]]
 				}
 			}
 
 		}
 	}
+	data.Try = 10 - NbErrror
 	if NbErrror == 10 {
+
 		data.Fin = true
 	}
-	data.Mot = Marie
-	// end := data.Mott
-	// for z := 0; z < len(Marie); z++ {
-	// 	for x := 0; x < 6; x++ {
-	// 		if end[z] == Marie[z] && end[x] != "_" {
-	// 			fmt.Println("test")
-	// 		}
-	// 	}
-	// }
-	fmt.Println(NbErrror)
-	fmt.Println(data.Mot)
-	fmt.Println(data.Mott)
+	data.Mot = Code
+	for i := 0; i < len(Code); i++ {
+		if Code[i] == "_ " {
+			Winn = 0
+			break
+		} else {
+			Winn = 1
+		}
+	}
+	if Winn == 1 {
+		data.Win = true
+	}
 	templates2.Execute(w, data)
 }
 func appen(a []string) []string {
@@ -125,7 +131,7 @@ func letterTrue(Lettre, ChoixBot string) []int {
 		conver = string(ChoixBot2[i] - 32)
 		Mot = append(Mot, conver)
 	}
-	data.Mott = Mot
+	data.MotFinal = Mot
 	for i := 0; i < len(ChoixBot2); i++ {
 		if Lettre == Mot[i] {
 			c = append(c, i)
@@ -152,12 +158,11 @@ func rdmWord() string {
 	rand.Seed(time.Now().UTC().UnixNano())
 	data, err := ioutil.ReadFile("words3.txt")
 	if err != nil {
-		fmt.Println(err)
+
 	}
 	dat := string(data)
 	dat2 := SplitWhiteSpaces(dat)
 	Rdmwrd := randInt(0, len(dat2))
-	fmt.Printf("le bot a choisit sont mot !")
 	return (dat2[Rdmwrd])
 }
 
@@ -210,6 +215,5 @@ func main() {
 	http.HandleFunc("/lvl2", lvl_2)
 	http.HandleFunc("/lvl3", lvl_3)
 
-	log.Fatal(http.ListenAndServe(":80", nil))
-
+	log.Fatal(http.ListenAndServe(":55", nil))
 }
