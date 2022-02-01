@@ -102,8 +102,10 @@ func lvl_1(w http.ResponseWriter, r *http.Request) {
 	}
 	if Winn == 1 {
 		data.Win = true
+
 	}
 	templates2.Execute(w, data)
+
 }
 func appen(a []string) []string {
 	var c []string
